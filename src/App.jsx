@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 // custom hooks
 import useLocalStorage from './hooks/useLocalStorage'
@@ -14,18 +14,36 @@ function App() {
   const [previousFocusEl, setPreviousFocusEl] = useState(null);
   const [editedTask, setEditedTask] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
-  const [hue, setHue] = useState(150); // Initialize hue to your desired default value
+  const [hue, setHue] = useState(240); // Initialize hue to your desired default value
 
   const handleHueChange = (value) => {
     setHue(value);
     setAccentColor(value);
+
+    // Save the selected color to local storage
+    localStorage.setItem('userPreferredColor', value.toString());
   };
-  
+
+  useEffect(() => {
+    // Retrieve the user's preferred color from local storage
+    const userPreferredColor = localStorage.getItem('userPreferredColor');
+
+    if (userPreferredColor) {
+      setHue(parseInt(userPreferredColor, 10)); // Parse and set the hue value
+      setAccentColor(parseInt(userPreferredColor, 10)); // Set the initial accent color
+    } else {
+      // If there's no userPreferredColor in local storage, use the default hue
+      const defaultHue = 150; // Replace with your desired default hue
+      setHue(defaultHue);
+      setAccentColor(defaultHue);
+    }
+  }, []);
+
+
   const setAccentColor = (hue) => {
     const accentColor = `hsl(${hue}, 100%, 50%)`;
     document.documentElement.style.setProperty('--accent', accentColor);
   };
-  
 
   const addTask = (task) => {
     setTasks(prevState => [...prevState, task])
@@ -68,27 +86,29 @@ function App() {
       <header>
         <h1>TaskTrackr</h1>
       </header>
-      {
-        isEditing && (
-          <EditForm
-            editedTask={editedTask}
-            updateTask={updateTask}
-            closeEditMode={closeEditMode}
+      <div>
+        {
+          isEditing && (
+            <EditForm
+              editedTask={editedTask}
+              updateTask={updateTask}
+              closeEditMode={closeEditMode}
+            />
+          )
+        }
+        <CustomForm addTask={addTask} />
+        {tasks && (
+          <TaskList
+            tasks={tasks}
+            deleteTask={deleteTask}
+            toggleTask={toggleTask}
+            enterEditMode={enterEditMode}
           />
-        )
-      }
-      <CustomForm addTask={addTask} />
-      {tasks && (
-        <TaskList
-          tasks={tasks}
-          deleteTask={deleteTask}
-          toggleTask={toggleTask}
-          enterEditMode={enterEditMode}
-        />
-      )}
-      <span>
+        )}
+      </div>
+      <div className='colorSlider'>
         <ColorSlider hue={hue} onHueChange={handleHueChange} />
-      </span>
+      </div>
     </div>
   )
 }
