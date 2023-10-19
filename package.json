@@ -10,8 +10,11 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.0.8",
+    "rc-slider": "^10.3.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-color": "^2.19.3",
+    "react-dom": "^18.2.0",
+    "tinycolor2": "^1.6.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.17",

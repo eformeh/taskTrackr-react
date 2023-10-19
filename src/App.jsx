@@ -7,12 +7,25 @@ import useLocalStorage from './hooks/useLocalStorage'
 import CustomForm from './components/CustomForm'
 import EditForm from './components/EditForm'
 import TaskList from './components/TaskList'
+import ColorSlider from './components/ColorSlider'
 
 function App() {
   const [tasks, setTasks] = useLocalStorage('taskTrackr.tasks', []);
   const [previousFocusEl, setPreviousFocusEl] = useState(null);
   const [editedTask, setEditedTask] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
+  const [hue, setHue] = useState(150); // Initialize hue to your desired default value
+
+  const handleHueChange = (value) => {
+    setHue(value);
+    setAccentColor(value);
+  };
+  
+  const setAccentColor = (hue) => {
+    const accentColor = `hsl(${hue}, 100%, 50%)`;
+    document.documentElement.style.setProperty('--accent', accentColor);
+  };
+  
 
   const addTask = (task) => {
     setTasks(prevState => [...prevState, task])
@@ -73,7 +86,9 @@ function App() {
           enterEditMode={enterEditMode}
         />
       )}
-      
+      <span>
+        <ColorSlider hue={hue} onHueChange={handleHueChange} />
+      </span>
     </div>
   )
 }

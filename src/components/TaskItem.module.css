@@ -33,9 +33,9 @@
   background-color: hsl(var(--muted));
   border-radius: var(--_radius);
   box-shadow:
-    0 0 .5em hsl(var(--accent) / .1),
-    0 0 0 0.05em hsl(var(--accent) / .5),
-    0 0 0 -0.2em hsl(var(--accent));
+    0 0 .5em var(--accent) / .1,
+    0 0 0 0.05em var(--accent) / .5,
+    0 0 0 -0.2em var(--accent);
   transition: box-shadow var(--_tspeed_fast) ease-in-out,
     background-color 80ms ease-in-out;
 }
@@ -71,7 +71,7 @@
 }
 
 .checkbox:checked {
-  background-color: hsl(var(--accent));
+  background-color: var(--accent);
 }
 
 .checkbox:checked+label {
@@ -79,11 +79,11 @@
 }
 
 .delete {
-  --accent: var(--accent1);
+  --accent: red ;
 }
 
 .loading {
-  color: hsl(var(--accent));
+  color: var(--accent);
   font-size: var(--_size);
   font-weight: bold;
   animation: pulse 2s infinite ease-in-out;

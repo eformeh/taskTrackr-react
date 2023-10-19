@@ -28,13 +28,13 @@ label {
   /* Light Mode */
   --bg--light: var(--_hue) 30% 94%;
   --txt--light: var(--_hue) 40% 5%;
-  --accent--light: var(--_hue) 55% 50%;
-  --accent1--light: 10 80% 60%;
+  --accent--light: var(--accent)
+  --accent1--light: var(--accent)
   --muted--light: var(--_hue) 30% 99%;
   /* Dark Mode */
   --bg--dark: var(--_hue) 15% 10%;
   --txt--dark: var(--_hue) 30% 88%;
-  --accent--dark: var(--_hue) 50% 50%;
+  --accent--dark: var(--accent)
   --accent1--dark: 10 55% 50%;
   --muted--dark: var(--_hue) 20% 4%;
 }
@@ -132,13 +132,13 @@ hr {
   display: flex;
   place-items: center;
   gap: 0.5em;
-  background-color: hsl(var(--accent));
+  background-color: var(--accent);
   color: hsl(var(--bg));
   text-decoration: none;
   padding: 0.5em;
   border-radius: var(--_radius);
   box-shadow: 0.05em 0.1em 0.9em hsl(var(--accent) / 0.3),
-    0 0 0 -0.1em hsl(var(--bg)), 0 0 0 -0.2em hsl(var(--accent));
+    0 0 0 -0.1em hsl(var(--bg)), 0 0 0 -0.2em var(--accent);
   transition: box-shadow var(--_tspeed_fast) var(--_ttype_squish),
     background-color var(--_tspeed_fast) var(--_ttype_squish);
 }
@@ -153,9 +153,9 @@ hr {
 }
 
 .btn:where(:active, :hover) {
-  background-color: hsl(var(--accent) / 0.7);
+  background-color: var(--accent) / 0.7;
   box-shadow: 0 0 0 hsl(var(--accent) / 0.3), 0 0 0 -0.1em hsl(var(--bg)),
-    0 0 0 -0.2em hsl(var(--accent));
+    0 0 0 -0.2em var(--accent);
 }
 
 .btn:focus {
@@ -163,7 +163,7 @@ hr {
 }
 
 .btn:focus-visible {
-  box-shadow: 0 0 0 hsl(var(--accent) / 0.3), 0 0 0 0.2em hsl(var(--bg)),
+  box-shadow: 0 0 0 var(--accent)/ 0.3, 0 0 0 0.2em hsl(var(--bg)),
     0 0 0 0.4em hsl(var(--accent) / 0.7);
 }
 
@@ -202,7 +202,7 @@ hr {
   padding: 0.35em 0.55em;
   width: 100%;
   background-color: hsl(var(--muted));
-  caret-color: hsl(var(--accent));
+  caret-color: var(--accent);
   box-shadow: 0 0 0 -0.1em hsl(var(--bg)), 0 0 0 -0.2em hsl(var(--accent) / 0.8);
   transition: box-shadow var(--_tspeed_fast) var(--_ttype_squish);
 }
@@ -216,7 +216,8 @@ hr {
 .input:not(:placeholder-shown)~.label {
   transform: translate3d(0, -3em, 0);
   background-color: hsl(var(--bg));
-  color: hsl(var(--accent) / 0.8);
+  color: var(--accent);
+
 }
 
 .input::placeholder {
